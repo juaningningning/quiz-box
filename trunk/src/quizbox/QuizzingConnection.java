@@ -77,6 +77,7 @@ public class QuizzingConnection {
 			log.warn("Unable to open connection to port: " + port + " - " + e);
 			System.out.println("Unable to open serial port, available ports are: ");
 			IOutilities.listPorts();
+			System.out.println("Selected Port = '" + port + "' and BPS = " + bps);
 			
 			closeReader();
 			closeSerialConnection();
