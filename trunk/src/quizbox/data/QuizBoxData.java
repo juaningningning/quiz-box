@@ -95,9 +95,9 @@ public class QuizBoxData implements QuizConstants {
 	}
 	
 	public void setLQ(int lq) {
-		// Do some filtering on the data
+		// Do some filtering on the data - this is a low pass filter
 		if (myLQ==0.0) myLQ = lq;
-		else myLQ = 0.9*myLQ + 0.1*(double)lq;
+		else myLQ = 0.95*myLQ + 0.05*(double)lq;
 	}
 	
 	public int getLQ() {

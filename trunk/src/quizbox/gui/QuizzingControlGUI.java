@@ -1128,7 +1128,7 @@ public class QuizzingControlGUI extends JFrame implements QuizConstants, SerialL
 	@Override
 	public void processLine(String line) {
 		QuizMessage msg = new QuizMessage(line);
-		if (msg.isButtonMessage() || msg.isStatusMessage()) {
+		if (msg.isButtonMessage() || msg.isLinkStatusMessage()) {
 			QuizBoxAddress address = msg.getAddress();
 			if (address.isValidAddress()) {
 				QuizBoxData data = QuizBoxData.getQuizBoxData(address);

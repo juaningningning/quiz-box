@@ -18,14 +18,20 @@ public class QuizMessage {
 	public static final int BUTTON_TYPE = 3;
 	public static final int STATUS_TYPE = 4;
 	public static final int UPDATE_TYPE = 5;
+	public static final int MODE_TYPE = 6;
+	public static final int INFO_TYPE = 7;
 	
 	private String myLine;
 	private int myType;
-	private String myVersion;
-	private QuizBoxAddress myAddress;
 	private int myButton;
 	private int myLQ1;
 	private int myLQ2;
+	private QuizBoxAddress myAddress;
+	private QuizBoxAddress myBaseAddress;
+	private String myVersion;
+	private String myInfo;
+	private String myInfoType;
+	private String myMode;
 	
 	public QuizMessage() {
 		clear();
@@ -42,8 +48,12 @@ public class QuizMessage {
 	public void clear() {
 		myLine = "";
 		myVersion = "";
+		myInfo = "";
+		myInfoType = "";
 		myType = 0;
+		myMode = "";
 		myAddress = new QuizBoxAddress("");
+		myBaseAddress = new QuizBoxAddress("");
 		myButton = 0;
 		myLQ1 = 0;
 		myLQ2 = 0;
@@ -53,28 +63,64 @@ public class QuizMessage {
 		return myLine;
 	}
 	
-	public boolean isRequestMessage() {
-		return myType == VERSION_TYPE;
+	public int getMessageType() {
+		return myType;
 	}
 	
-	public boolean isVersionMessage() {
-		return myType == VERSION_TYPE;
+	public boolean isButtonSelectMessage() {
+		return myType == BUTTON_TYPE;
+	}
+	
+	public boolean isButtonStatusMessage() {
+		return myType == UPDATE_TYPE;
 	}
 	
 	public boolean isButtonMessage() {
 		return myType == BUTTON_TYPE || myType == UPDATE_TYPE;
 	}
 	
-	public boolean isStatusMessage() {
+	public boolean isRequestMessage() {
+		return myType == VERSION_TYPE;
+	}
+	
+	public boolean isLinkStatusMessage() {
 		return myType == STATUS_TYPE;
+	}
+	
+	public boolean isVersionMessage() {
+		return myType == VERSION_TYPE;
+	}
+	
+	public boolean isModeMessage() {
+		return myType == MODE_TYPE;
+	}
+	
+	public boolean isInfoMessage() {
+		return myType == INFO_TYPE;
 	}
 	
 	public String getVersion() {
 		return myVersion;
 	}
 	
+	public String getInfoString() {
+		return myInfo;
+	}
+	
+	public String getInfoType() {
+		return myInfoType;
+	}
+	
+	public String getMode() {
+		return myMode;
+	}
+	
 	public QuizBoxAddress getAddress() {
 		return myAddress;
+	}
+	
+	public QuizBoxAddress getBaseAddress() {
+		return myBaseAddress;
 	}
 	
 	public int getButton() {
@@ -99,22 +145,54 @@ public class QuizMessage {
 		if (myLine==null || myLine.trim().length()==0) {
 			return;
 		}
-		char c = myLine.charAt(0);
+		
+		char c = ' ';
+		int len = myLine.length();
+		if (len > 0) c = myLine.charAt(0);
 		if (c=='^') {
 			myType = VERSION_TYPE;
-			myVersion = myLine.substring(1);
+			if (len >= 3) {
+				String[] fields = myLine.substring(1).split(":");
+				if (fields.length > 0) {
+					myVersion = fields[0];
+					if (fields.length > 1) myInfo = fields[1];
+				}
+			}
 		} else if (c == '#') {
 			myType = BUTTON_TYPE;
-			myAddress.setBinaryAddress(myLine.substring(1,4));
-			myButton = Integer.parseInt(myLine.substring(4, 6));
+			if (len >= 6) {
+				myAddress.setBinaryAddress(myLine.substring(1,4));
+				myButton = Integer.parseInt(myLine.substring(4, 6));
+				if (len > 6) myLQ1 = myLine.charAt(6);
+			}
 		} else if (c == '+') {
 			myType = UPDATE_TYPE;
-			myAddress.setBinaryAddress(myLine.substring(1,4));
-			myButton = Integer.parseInt(myLine.substring(4, 6));
+			if (len >= 6) {
+				myAddress.setBinaryAddress(myLine.substring(1,4));
+				myButton = Integer.parseInt(myLine.substring(4, 6));
+				if (len > 6) myLQ1 = myLine.charAt(6);
+			}
  		} else if (c == '@') {
 			myType = STATUS_TYPE;
-			myAddress.setBinaryAddress(myLine.substring(1,4));
-			myLQ1 = Integer.parseInt(myLine.substring(4, 7))-255;
+			if (len >= 7) {
+				myAddress.setBinaryAddress(myLine.substring(1,4));
+				myBaseAddress.setBinaryAddress(myLine.substring(4,7));
+				if (len > 7) myLQ1 = myLine.charAt(7);
+				if (len > 7) myLQ2 = myLine.charAt(8);
+			}
+ 		} else if (c == '!') {
+			myType = MODE_TYPE;
+			if (len >= 2) {
+				myMode = ""+myLine.charAt(1);
+				if (len > 2) myLQ1 = myLine.charAt(2);
+			}
+ 		} else if (c=='%') {
+			myType = INFO_TYPE;
+			if (len >= 2) {
+				myInfoType = "" + myLine.charAt(1);
+				// skip ":"
+				if (len > 3) myInfo = myLine.substring(3);
+			}
 		} else {
 			myType = NONE_TYPE;
 		}
@@ -128,11 +206,11 @@ public class QuizMessage {
 	}
 	
 	public static QuizMessage createStatusRequest() {
-		return createRequest("S");
+		return createRequest("s");
 	}
 	
 	public static QuizMessage createVersionRequest() {
-		return createRequest("V");
+		return createRequest("v");
 	}
 	
 	public static QuizMessage createLockRequest() {
@@ -185,11 +263,11 @@ public class QuizMessage {
 	}
 	
 	public static QuizMessage createLinkQualityRequest() {
-		return createRequest("Q");
+		return createRequest("q");
 	}
 	
 	public static QuizMessage createLinkQualityRequest(String addr) {
-		return createRequest("Q" + addr);
+		return createRequest("q" + addr);
 	}
 	
 	@Override
