@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------
-# QuizBox Remote Version 5a
+# QuizBox Remote Version 5b
 # 12/08/2012
 # Ted Meyers
 # -------------------------------------------------------------------
@@ -16,8 +16,11 @@ from synapse.platforms import *
 #    "\x00\x00\x01" # Portal address
 
 HEX = "0123456789ABCDEF"
+NET_ID = 3
+CHANNEL = 4
 BASE_NODE_ADDR_ID = 201
 NODE_NAME_ID = 202
+START_MODE_ID = 204
 
 MODE_STARTUP = 'S'
 MODE_TEST  = 'T'
@@ -25,7 +28,6 @@ MODE_READY = 'R'
 MODE_LOCK  = 'L'
 MODE_DEMO  = 'D'
 MODE_POWER = 'P'
-INITIAL_MODE = MODE_DEMO
 
 NONE = 0
 BUTTON_A_PIN = 30     # pin 18 := 30
@@ -54,40 +56,43 @@ updateTicksStart = 50       # 10 msec periods between sending status updates
 startupTicks = 200          # 10 msec periods before startup time expires
 
 # ------------------------------------------
-# Remote commands
+# Network functions / Remote commands
 # ------------------------------------------
-
-# resetTimeout
-def rt():
-    global timeOutTicks
-    timeOutTicks = timeOutTicksStart
     
 # sendBackLQ
 def sq():
     global timeOutTicks
     timeOutTicks = timeOutTicksStart
     addr = rpcSourceAddr()
-    data = 255-getLq()
-    rpc(addr, 'rq', data)
+    data = chr(getLq())
+    rpc(addr, 'rq', baseNodeAddr, data)
+
+# resetTimeout
+def rt():
+    global timeOutTicks
+    if _checkAddr(rpcSourceAddr()):
+        timeOutTicks = timeOutTicksStart
 
 # showDisplayed
 def sd(a, b, c, p):
     global timeOutTicks
-    timeOutTicks = timeOutTicksStart
-    writePin(DISPLAY_A_PIN, a) 
-    writePin(DISPLAY_B_PIN, b) 
-    writePin(DISPLAY_C_PIN, c)
-    writePin(DISPLAY_P_PIN, p)
+    if _checkAddr(rpcSourceAddr()):
+        timeOutTicks = timeOutTicksStart
+        writePin(DISPLAY_A_PIN, a) 
+        writePin(DISPLAY_B_PIN, b) 
+        writePin(DISPLAY_C_PIN, c)
+        writePin(DISPLAY_P_PIN, p)
 
 # clearCurrentSelected
 def cs():
     global curSelected
     global timeOutTicks
-    timeOutTicks = timeOutTicksStart
-    curSelected = NONE
-    writePin(DISPLAY_A_PIN, False) 
-    writePin(DISPLAY_B_PIN, False) 
-    writePin(DISPLAY_C_PIN, False)
+    if _checkAddr(rpcSourceAddr()):
+        timeOutTicks = timeOutTicksStart
+        curSelected = NONE
+        writePin(DISPLAY_A_PIN, False) 
+        writePin(DISPLAY_B_PIN, False) 
+        writePin(DISPLAY_C_PIN, False)
 
 #updateSelected
 def us(selected):
@@ -95,73 +100,83 @@ def us(selected):
     global timeOutTicks
     global isUpdateSelect
     
-    isUpdateSelect = True
-    timeOutTicks = timeOutTicksStart
-    curSelected = selected
-    writePin(DISPLAY_A_PIN, (selected==BUTTON_A_PIN)) 
-    writePin(DISPLAY_B_PIN, (selected==BUTTON_B_PIN)) 
-    writePin(DISPLAY_C_PIN, (selected==BUTTON_C_PIN))
+    if _checkAddr(rpcSourceAddr()):
+        isUpdateSelect = True
+        timeOutTicks = timeOutTicksStart
+        curSelected = selected
+        writePin(DISPLAY_A_PIN, (selected==BUTTON_A_PIN)) 
+        writePin(DISPLAY_B_PIN, (selected==BUTTON_B_PIN)) 
+        writePin(DISPLAY_C_PIN, (selected==BUTTON_C_PIN))
 
 # setModePower (doesn't really make sense not to clear)
 def mp():
     global timeOutTicks
-    timeOutTicks = timeOutTicksStart
-    _setModeAndClearOnChange(MODE_POWER)
+    if _checkAddr(rpcSourceAddr()):
+        timeOutTicks = timeOutTicksStart
+        _setModeAndClearOnChange(MODE_POWER)
     
 # setModeLock (without clear)
 def sl():
     global curMode
     global timeOutTicks
-    timeOutTicks = timeOutTicksStart
-    curMode = MODE_LOCK
+    if _checkAddr(rpcSourceAddr()):
+        timeOutTicks = timeOutTicksStart
+        curMode = MODE_LOCK
     
 # setModeLock (with clear)
 def ml():
     global timeOutTicks
-    timeOutTicks = timeOutTicksStart
-    _setModeAndClear(MODE_LOCK)
+    if _checkAddr(rpcSourceAddr()):
+        timeOutTicks = timeOutTicksStart
+        _setModeAndClear(MODE_LOCK)
     
 # SetmodeReady (without a clear)
 def sr():
     global curMode
     global timeOutTicks
-    timeOutTicks = timeOutTicksStart
-    curMode = MODE_READY
+    if _checkAddr(rpcSourceAddr()):
+        timeOutTicks = timeOutTicksStart
+        curMode = MODE_READY
 
 # setModeReady (with clear)
 def mr():
     global timeOutTicks
-    timeOutTicks = timeOutTicksStart
-    _setModeAndClearOnChange(MODE_READY)
+    if _checkAddr(rpcSourceAddr()):
+        timeOutTicks = timeOutTicksStart
+        _setModeAndClearOnChange(MODE_READY)
     
 # SetmodeTest (without a clear)
 def st():
     global curMode
     global timeOutTicks
-    timeOutTicks = timeOutTicksStart
-    curMode = MODE_TEST
+    if _checkAddr(rpcSourceAddr()):
+        timeOutTicks = timeOutTicksStart
+        curMode = MODE_TEST
 
 # setModeTest (with clear)
 def mt():
     global timeOutTicks
-    timeOutTicks = timeOutTicksStart
-    _setModeAndClearOnChange(MODE_TEST)
+    if _checkAddr(rpcSourceAddr()):
+        timeOutTicks = timeOutTicksStart
+        _setModeAndClearOnChange(MODE_TEST)
     
 # SetmodeDemo (without a clear)
 def sd():
     global curMode
     global timeOutTicks
-    timeOutTicks = timeOutTicksStart
-    curMode = MODE_DEMO
+    if _checkAddr(rpcSourceAddr()):
+        timeOutTicks = timeOutTicksStart
+        curMode = MODE_DEMO
 
 # setModeDemo (with clear)
 def md():
     global timeOutTicks
-    timeOutTicks = timeOutTicksStart
-    _setModeAndClearOnChange(MODE_DEMO)
+    if _checkAddr(rpcSourceAddr()):
+        timeOutTicks = timeOutTicksStart
+        _setModeAndClearOnChange(MODE_DEMO)
 
 # ------------------------------------------
-# Getters / Setters
+# Setters & Getters (Nonvolatile Parameters)
 # ------------------------------------------
 
 def setBaseNodeAddr(address): 
@@ -171,12 +186,6 @@ def setBaseNodeAddr(address):
     saveNvParam(BASE_NODE_ADDR_ID, baseNodeAddr)
     _updateBaseNodeAddrX()
 
-def getBaseNodeAddr():
-    return baseNodeAddr
-
-def getBaseNodeAddrX():
-    return baseNodeAddrX
-
 def setNodeName(name): 
     """Call this at least once, and specify the node's name""" 
     global nodeName
@@ -184,15 +193,26 @@ def setNodeName(name):
     saveNvParam(NODE_NAME_ID, nodeName)
     _updateNodeNameX()
 
+def setStartupMode(mode):
+    if mode==MODE_TEST or mode==MODE_READY or mode==MODE_LOCK or mode==MODE_DEMO or mode==MODE_POWER:
+        saveNvParam(START_MODE_ID, mode)
+
+def getBaseNodeAddr():
+    return baseNodeAddr
+
+def getBaseNodeAddrX():
+    return baseNodeAddrX
+
 def getNodeName():
     return nodeName
 
 def getNodeNameX():
     return nodeNameX
 
-def getLQValue():
-    """Get the LQ value (255-lq)"""
-    return (255-getLq())
+def getStartupMode():
+    m = loadNvParam(START_MODE_ID)
+    if m==None: m = MODE_DEMO
+    return m
 
 def getModeValue():
     """Get the current mode value"""
@@ -209,12 +229,20 @@ def getPowerOnValue():
 def getStatusString():
     """Get the current status of this remote, as a string"""
     status = "m:" + str(curMode) + ", s:" + str(curSelected) + \
-        ", p:" + str(powerOn) + ", q:" + str(getLQValue()) + ", t:" + str(timeOutTicks)
+        ", p:" + str(powerOn) + ", q:" + str(getLq()) + \
+        ", t:" + str(timeOutTicks) + ", n:" + loadNvParam(NET_ID) + \
+        ", c:" + loadNvParam(CHANNEL)
     return status
+
+def checkAddr(addr):
+    return _checkAddr(addr)
 
 # ------------------------------------------
 # Private functions
 # ------------------------------------------
+def _checkAddr(addr):
+    if addr==None: return False
+    return baseNodeAddr[0]==addr[0] and baseNodeAddr[1]==addr[1] and baseNodeAddr[2]==addr[2]
   
 def _setModeAndClear(mode):
     """Clear displayed pin and save the mode"""
@@ -263,7 +291,7 @@ def _getHexAddr(addr):
     hexaddr = HEX[a0/16] + HEX[a0%16] + HEX[a1/16] + HEX[a1%16]
     hexaddr = hexaddr + HEX[a2/16] + HEX[a2%16]    
     return hexaddr
-
+ 
 @setHook(HOOK_GPIN)
 def _buttonEvent(pinNum, isSet):
     """Automatically called when a button changes state, do no call manually"""
@@ -295,12 +323,14 @@ def _buttonEvent(pinNum, isSet):
             writePin(DISPLAY_C_PIN, (pinNum==BUTTON_C_PIN))
             updateTicks = updateTicksStart
             # Send Button selected Return request message to base
-            rpc(baseNodeAddr, 'br', pinNum)
+            lq = chr(getLq())
+            rpc(baseNodeAddr, 'br', pinNum, lq)
         elif curMode==MODE_TEST:
             # Display is updated by a message back from the base
             updateTicks = updateTicksStart
             # Send Button selected Return requested message to base
-            rpc(baseNodeAddr, 'br', pinNum)
+            lq  = chr(getLq())
+            rpc(baseNodeAddr, 'br', pinNum, lq)
         elif curMode==MODE_DEMO:
             # Update display, no Button Status message is sent
             writePin(DISPLAY_A_PIN, (pinNum==BUTTON_A_PIN)) 
@@ -314,7 +344,7 @@ def _buttonEvent(pinNum, isSet):
 
 @setHook(HOOK_10MS)
 def _doEvery10ms(tick):
-    """Automatically called every 10 msec, do no call manually"""
+    """Automatically called every 10 msec, do not call manually"""
     global buttonTicks
     global timeOutTicks
     global updateTicks
@@ -334,7 +364,8 @@ def _doEvery10ms(tick):
         updateTicks = updateTicks - 1
     else:
         # Send Remote Status update
-        rpc(baseNodeAddr, 'rs', curSelected)
+        lq = chr(getLq())
+        rpc(baseNodeAddr, 'rs', curSelected, lq)
         updateTicks = updateTicksStart
         if curMode == MODE_READY:
             if not isUpdateSelect:
@@ -343,12 +374,13 @@ def _doEvery10ms(tick):
                 writePin(DISPLAY_B_PIN, False)
                 writePin(DISPLAY_C_PIN, False)
                 # Send Button selected Return request message to base
-                rpc(baseNodeAddr, 'br', curSelected)
+                rpc(baseNodeAddr, 'br', curSelected, lq)
     
     if curMode == MODE_STARTUP:
         if startupTicks <= 0:
             startupTicks = 0
-            curMode = INITIAL_MODE
+            curMode = getStartupMode()
+            _setModeAndClear(curMode)
         else:
             startupTicks = startupTicks - 1
  
@@ -396,6 +428,8 @@ def _startupEvent():
     
     baseNodeAddr = loadNvParam(BASE_NODE_ADDR_ID)
     nodeName = loadNvParam(NODE_NAME_ID)
+    if baseNodeAddr==None: baseNodeAddr = "xxx"
+    if nodeName==None: nodeName = "r"
     _updateNodeNameX()
     _updateBaseNodeAddrX()
 
