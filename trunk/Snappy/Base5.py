@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------
-# QuizBox Base Version 5c
+# QuizBox Base Version 5e
 # 12/08/2012
 # Ted Meyers
 # -------------------------------------------------------------------
@@ -11,31 +11,31 @@
 from synapse.switchboard import *
 from synapse.platforms import *
 
+VER = "5e"
 HEX = "0123456789ABCDEF"
+NET_ID = 3
+CHANNEL_ID = 4
 NODE_NAME_ID = 202
 BAUD_RATE_ID = 203
+START_MODE_ID = 204
 MODE_TEST  = 'T'
 MODE_READY = 'R'
 MODE_LOCK  = 'L'
 MODE_DEMO  = 'D'
 MODE_POWER = 'P'
+MODE_QUIET = 'Q'
+DEFAULT_BAUD_RATE = 57600
+
 curMode=MODE_READY
 refreshSeconds = 2
 refreshTimer = refreshSeconds
 nodeName = 0
 nodeNameX = 0
+textFormat = False
 
-def _updateNodeNameX():
-    global nodeNameX
-    addr = localAddr()
-    a0 = ord(addr[0])
-    a1 = ord(addr[1])
-    a2 = ord(addr[2])
-    ver = imageName() + ".v5c"
-    hexaddr = HEX[a0/16] + HEX[a0%16] + HEX[a1/16] + HEX[a1%16]
-    hexaddr = hexaddr + HEX[a2/16] + HEX[a2%16]    
-    nodeNameX = nodeName + "_" + ver + "_" + hexaddr    
-
+# ------------------------------------------
+# Public functions
+# ------------------------------------------
 def getNodeNameX():
     return nodeNameX
 
@@ -56,6 +56,10 @@ def sendClear():
     global select
     mcastRpc(1, 3, 'cs')
       
+def sendModeQuiet():
+    global curMode
+    curMode=MODE_QUIET
+    
 def sendModePower():
     global curMode
     curMode=MODE_POWER
@@ -113,88 +117,127 @@ def sendUpdateDisplay(a,b,c,p):
 def getStatus():
     return curMode
 
+# ------------------------------------------
+# Network functions
+# ------------------------------------------
 # Remote Status
-def rs(data):
+def rs(data, lq):
     addr=rpcSourceAddr()
     if data==0: data="00"
-    print "(+", addr, data, ')',
-
-# Button Selected
-def bs(data):
-    addr=rpcSourceAddr()
-    if data==0: data="00"
-    print "(#", addr, data, ')',
+    print "(+", addr, data, lq, ')',
 
 # Button selected Return requested
-def br(data):
+def br(data, lq):
     addr=rpcSourceAddr()
     rpc(addr, 'us', data)
     if data==0: data="00"
-    print "(#", addr, data, ')',
+    print "(#", addr, data, lq, ')',
     
 # Return link Quality
-def rq(data):
+def rq(base, data):
     addr=rpcSourceAddr()
-    print "(@", addr, data, ')',
+    lq = getLq()
+    print "(@", addr, base, data, chr(lq), ')',
+    if textFormat:
+        addr=_translateNode(addr)
+        base=_translateNode(base)
+        print "(%Q:", addr, ',', base, ',', ord(data), ',', lq, ')'
 
-def setupSerial():
+# ------------------------------------------
+# Setters & Getters (Nonvolatile Parameters)
+# ------------------------------------------
+def setStartupMode(mode):
+    if mode==MODE_TEST or mode==MODE_READY or mode==MODE_LOCK or mode==MODE_DEMO or mode==MODE_POWER:
+        saveNvParam(START_MODE_ID, mode)
+    
+def setBaudRate(rate):
+    saveNvParam(BAUD_RATE_ID, rate)
+
+def setBaudCode(code):
+    rate = DEFAULT_BAUD_RATE
+    if code==0: rate=DEFAULT_BAUD_RATE
+    elif code==1: rate=1        # Special case for 115200
+    elif code==2: rate=2400
+    elif code==3: rate=38400
+    elif code==4: rate=14400
+    elif code==5: rate=57600    # This is the same as -7936 signed
+    elif code==9: rate=9600
+    else: rate=DEFAULT_BAUD_RATE
+    saveNvParam(BAUD_RATE_ID, rate)
+    
+def getStartupMode():
+    m = loadNvParam(START_MODE_ID)
+    if m==None: m = MODE_READY
+    return m
+    
+def getBaudRateX():
+    val = str(DEFAULT_BAUD_RATE)
     rate = loadNvParam(BAUD_RATE_ID)
-    if rate==None: rate = 57600
+    if rate==None: rate = DEFAULT_BAUD_RATE # Use Default val
+    elif rate==1: val = "115200"            # Special Case
+    elif rate==-7936: val = "57600"         # Special Case
+    else: val = str(rate)
+    return val
+
+# ------------------------------------------
+# Private functions
+# ------------------------------------------
+def _setupSerial():
+    rate = loadNvParam(BAUD_RATE_ID)
+    if rate==None: rate = DEFAULT_BAUD_RATE
     initUart(1, rate)     # baud rate (1 == 115200)!
     flowControl(1, False) # <= set flow control to True or False as needed
     stdinMode(0, False)   # Line mode, echo
     crossConnect(DS_UART1, DS_STDIO)
-    
-def setBaudCode(code):
-    rate = 57600
-    if code==0: rate=57600
-    elif code==1: rate=1      # 115200
-    elif code==2: rate=2400
-    elif code==3: rate=38400
-    elif code==4: rate=14400
-    elif code==5: rate=57600
-    elif code==9: rate=9600
-    else: rate=57600
-    saveNvParam(BAUD_RATE_ID, rate)
-    
-def setBaudRate(rate):
-    saveNvParam(BAUD_RATE_ID, rate)
-    
-def getBaudRateX():
-    val = "57600"
-    rate = loadNvParam(BAUD_RATE_ID)
-    if rate==None: val = "57600"
-    elif rate==1: val = "115200"
-    elif rate==-7936: val = "57600"
-    else: val = str(rate)
-    return val
 
-def printHelp():
-    print "Help: "
-    print "   b - print current baud rate"
-    print "   Bx - set baud rate (1=115200, 2=2400, 3=38400, 4=14400, 5=57600, 9=9600)"
-    print "   Nname - set name to 'name'"
-    print "   S - print status"
-    print "   V - print version"
-    print "   Q - send LQ request"
-    print "   Uxxxx - send update request (x=T/F)"
-    print "   C - send clear"
-    print "   P,L,R,T,D - set mode (power, lock, ready, test, demo"
-    print
+def _printHelp():
+    print "(%H: "
+    print "  b - print current baud rate"
+    print "  Bx - set baud rate (1=115200, 2=2400, 3=38400, 4=14400, 5=57600, 9=9600)"
+    print "  Nname - set name to 'name'"
+    print "  s - print status"
+    print "  v - print version"
+    print "  q - send LQ request"
+    print "  cx - change channel to x (on all connected devices)"
+    print "  Uxxxx - send update request (x=T/F)"
+    print "  C - send clear"
+    print "  m - print startup mode"
+    print "  Q,P,L,R,T,D - set mode (quiet, power, lock, ready, test, demo"
+    print "  Mx - set startup mode (x = Q,P,L,R,T,D)"
+    print "  Ax - set startup mode on remotes"
+    print "  F - Turn text format on;  f - turn text format off"
+    print "  [Node Info: ", nodeNameX, " b: ", getBaudRateX(), " sm: ", getStartupMode(), \
+        " nid: ", loadNvParam(NET_ID), " ch: ", loadNvParam(CHANNEL_ID), "]"
+    print ")"
+
+def _updateNodeNameX():
+    global nodeNameX
+    ver = imageName() + ".v" + VER
+    hexaddr = _translateNode(localAddr())
+    nodeNameX = nodeName + "_" + ver + "_" + hexaddr
+
+def _translateNode(addr):
+    a0 = ord(addr[0])
+    a1 = ord(addr[1])
+    a2 = ord(addr[2])
+    hex = HEX[a0/16] + HEX[a0%16] + HEX[a1/16] + HEX[a1%16] + HEX[a2/16] + HEX[a2%16]
+    return hex
     
 @setHook(HOOK_STARTUP)
 def _startupEvent():
     global nodeName
+    global curMode
     
-    setupSerial()
+    curMode = getStartupMode()
+    
+    _setupSerial()
     nodeName = loadNvParam(NODE_NAME_ID)
     if nodeName==None: nodeName = "Base"
     _updateNodeNameX()
     
 @setHook (HOOK_STDIN)
 def _processInput(data):
-    global nodeName
-    global nodeNameX
+    global textFormat
     
     i = 0
     sz = len(data)
@@ -202,6 +245,8 @@ def _processInput(data):
         d=data[i]
         if d=='C':
             sendClear()
+        elif d=='Q':
+            sendModeQuiet()
         elif d=='P':
             sendModePower()
         elif d=='L':
@@ -220,13 +265,19 @@ def _processInput(data):
             sendModeDemo()
         elif d=='d':
             sendModeDemoClear()
+        elif d=='F':
+            textFormat=True
+            print "(%F:On)"
+        elif d=='f':
+            textFormat=False
         elif d=='H' or d=='h' or d=='?':
-            printHelp()
-        elif d=='Q':
+            _printHelp()
+        elif d=='q':
             if sz>i+3:
                 sendLQRequestTo(data[i+1:i+4])
                 i=i+3
             else: sendLQRequest()
+            if textFormat: print "(%q:Sent_LQ)"
         elif d=='U':
             sz = len(data)
             if (i+4)<sz:
@@ -235,26 +286,59 @@ def _processInput(data):
                 c = data[i+3]=='T'
                 p = data[i+4]=='T'
                 sendUpdateDisplay(a,b,c,p)
-                print "(=", a, b, c, p, ")",
+                print "(%U:", a, b, c, p, ")",
+                if textFormat: print
                 i = i+4
         elif d=='b':
             rate = loadNvParam(BAUD_RATE_ID)
-            print "(^b:", getBaudRateX() + ")",
+            print "(%b:", getBaudRateX(), ")",
+            if textFormat: print
         elif d=='B':
             if (i+1)<sz: 
                 setBaudCode(int(data[i+1]))
-                print "(^b:", getBaudRateX() + ")",
+                print "(%B:", getBaudRateX(), ")",
+                if textFormat: print
+                i = i+1
+        elif d=='A':
+            if (i+1)<sz:
+                mcastRpc(1, 3, 'setStartupMode', data[i+1]);
+                if textFormat: print "(%A:", data[i+1], ")"
+                i = i+1        
+        elif d=='c':
+            if (i+2)<sz:
+                ch = int(data[i+1:i+3])
+                i = i+2
+            elif (i+1)<sz:
+                ch = int(data[i+1])
+                i = i+1
+            if textFormat: print "(%c:", ch, ")"
+            mcastRpc(1, 3, 'saveNvParam', CHANNEL_ID, ch)
+            saveNvParam(CHANNEL_ID, ch)
+            mcastRpc(1, 3, 'reboot')
+            reboot()
+        elif d=='m':
+            print "(%m:", getStartupMode(), ")",
+            if textFormat: print
+        elif d=='M':
+            if (i+1)<sz:
+                setStartupMode(data[i+1])
+                if textFormat: print "(%M:", getStartupMode(), ")"
                 i = i+1
         elif d=='N':
             setNodeName(data[i+1:sz])
             i=sz;
-            print "(^3:", nodeNameX, ")",
-        elif d=='S':
-            print "(!", curMode, chr(255-getLq()), ')',
-        elif d=='V':
-            print "(^2:", nodeNameX, ")",
+            if textFormat: print "(%N:", nodeNameX, ")"
+        elif d=='s':
+            lq = getLq()
+            print "(!", curMode, chr(lq), ')',
+            if textFormat: print "(%S:", curMode, ",", lq, ')'
+        elif d=='v':
+            nid = ", nid=" + str(loadNvParam(NET_ID))
+            ch = ", ch=" + str(loadNvParam(CHANNEL_ID))
+            print "(^", VER, ":", nodeNameX, nid, ch, ")",
+            if textFormat: print
         elif d=='Z':
-            pass
+            if textFormat: print
         i=i+1
  
 @setHook(HOOK_1S) 
