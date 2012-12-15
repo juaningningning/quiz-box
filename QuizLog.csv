@@ -193,3 +193,244 @@ SAVE, QuizResults.csv
 NEXT, 12_06_2012, 20:41:48.974
 QUIT
 CLOSE, 12_06_2012, 20:42:10.936
+START, 12_13_2012, 21:18:26.432
+SAVE, QuizResults.csv
+NEXT, 12_13_2012, 21:18:30.734
+QUIT
+CLOSE, 12_13_2012, 21:18:33.926
+START, 12_13_2012, 21:19:01.011
+SAVE, QuizResults.csv
+NEXT, 12_13_2012, 21:19:02.313
+START, 12_13_2012, 21:32:30.572
+SAVE, QuizResults.csv
+NEXT, 12_13_2012, 21:32:31.824
+QUIT
+CLOSE, 12_13_2012, 21:32:39.816
+START, 12_13_2012, 21:33:15.409
+SAVE, QuizResults.csv
+NEXT, 12_13_2012, 21:33:17.037
+START, 12_13_2012, 21:40:56.803
+SAVE, QuizResults.csv
+NEXT, 12_13_2012, 21:40:58.349
+QUIT
+CLOSE, 12_13_2012, 21:41:12.560
+START, 12_13_2012, 21:41:24.352
+SAVE, QuizResults.csv
+NEXT, 12_13_2012, 21:41:25.673
+QUIT
+CLOSE, 12_13_2012, 21:41:39.248
+START, 12_13_2012, 21:41:49.298
+SAVE, QuizResults.csv
+NEXT, 12_13_2012, 21:41:50.616
+QUIT
+CLOSE, 12_13_2012, 21:42:18.428
+START, 12_15_2012, 08:31:41.354
+SAVE, QuizResults.csv
+NEXT, 12_15_2012, 08:31:47.356
+QUIT
+CLOSE, 12_15_2012, 08:31:48.827
+START, 12_15_2012, 08:32:11.403
+SAVE, QuizResults.csv
+NEXT, 12_15_2012, 08:32:12.862
+#
+# MSG, Question#, Type, -, -, -, Answer, -, Points
+SUMMARY, 1, MC, -, -, -, A, -, 10
+# MSG, Question#, Box#, Address, Name, SpCnt, Answer, Place, Points, Bonus, Sum, Previous, Current, Standing
+RESULTS, 1, 1, 0x5D24BE, Number One, 0, B, 10, 0.00, 0.00, 0.00, 160.00, 160.00, 4
+RESULTS, 1, 2, 0x5D420A, Two by Two, 0, B, 9, 0.00, 0.00, 0.00, 140.00, 140.00, 5
+RESULTS, 1, 3, 0x5D42F6, Three Crowd, 0, B, 8, 0.00, 0.00, 0.00, 190.00, 190.00, 2
+RESULTS, 1, 4, 0x5DA31F, Four or more, 1, B, 6, 0.00, 0.00, 0.00, 190.00, 190.00, 2
+RESULTS, 1, 5, 0x5DA26C, Five Alive!, 0, B, 7, 0.00, 0.00, 0.00, 240.00, 240.00, 1
+RESULTS, 1, 6, 0x5DA2E2, Six, 0, A, 1, 10.00, 0.00, 10.00, 30.00, 40.00, 8
+RESULTS, 1, 7, 0x5DA2EE, Seven Heaven, 0, A, 2, 10.00, 0.00, 10.00, 20.00, 30.00, 10
+RESULTS, 1, 8, 0x5D431C, Eight Is Enough, 1, A, 5, 10.00, 0.00, 10.00, 110.00, 120.00, 6
+RESULTS, 1, 9, 0x5D41D9, Nine more, 0, A, 4, 10.00, 0.00, 10.00, 80.00, 90.00, 7
+RESULTS, 1, 10, 0x5DA327, Ten Hen, 0, A, 3, 10.00, 0.00, 10.00, 30.00, 40.00, 8
+RESULTS, 1, 11, 0x5D4200, Eleven Teen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 12, 0x5D4314, Twelve Delve, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 13, 0x5D42F2, Thirteen Wirteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 14, 0x5DA2F5, Fourteen Forts, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 15, 0x5D410D, Fifteen Fifths, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 16, 0x5D42E0, Sixteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 17, 0x5DA26B, Seventeen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 18, 0x5D42E7, Eighteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 19, 0x5DA2A3, Nineteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 20, 0x5D4301, Twenty Wenty, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+NEXT, 12_15_2012, 08:33:09.259
+#
+# MSG, Question#, Type, -, -, -, Answer, -, Points
+SUMMARY, 2, MC, -, -, -, B, -, 10
+# MSG, Question#, Box#, Address, Name, SpCnt, Answer, Place, Points, Bonus, Sum, Previous, Current, Standing
+RESULTS, 2, 1, 0x5D24BE, Number One, 0, B, 9, 10.00, 0.00, 10.00, 160.00, 170.00, 4
+RESULTS, 2, 2, 0x5D420A, Two by Two, 0, B, 8, 10.00, 0.00, 10.00, 140.00, 150.00, 5
+RESULTS, 2, 3, 0x5D42F6, Three Crowd, 0, B, 10, 10.00, 0.00, 10.00, 190.00, 200.00, 2
+RESULTS, 2, 4, 0x5DA31F, Four or more, 1, B, 6, 10.00, 0.00, 10.00, 190.00, 200.00, 2
+RESULTS, 2, 5, 0x5DA26C, Five Alive!, 0, B, 7, 10.00, 0.00, 10.00, 240.00, 250.00, 1
+RESULTS, 2, 6, 0x5DA2E2, Six, 0, C, 1, 0.00, 0.00, 0.00, 40.00, 40.00, 8
+RESULTS, 2, 7, 0x5DA2EE, Seven Heaven, 0, C, 2, 0.00, 0.00, 0.00, 30.00, 30.00, 10
+RESULTS, 2, 8, 0x5D431C, Eight Is Enough, 1, C, 3, 0.00, 0.00, 0.00, 120.00, 120.00, 6
+RESULTS, 2, 9, 0x5D41D9, Nine more, 0, C, 4, 0.00, 0.00, 0.00, 90.00, 90.00, 7
+RESULTS, 2, 10, 0x5DA327, Ten Hen, 0, C, 5, 0.00, 0.00, 0.00, 40.00, 40.00, 8
+RESULTS, 2, 11, 0x5D4200, Eleven Teen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 12, 0x5D4314, Twelve Delve, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 13, 0x5D42F2, Thirteen Wirteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 14, 0x5DA2F5, Fourteen Forts, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 15, 0x5D410D, Fifteen Fifths, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 16, 0x5D42E0, Sixteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 17, 0x5DA26B, Seventeen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 18, 0x5D42E7, Eighteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 19, 0x5DA2A3, Nineteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 20, 0x5D4301, Twenty Wenty, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+NEXT, 12_15_2012, 08:34:09.582
+#
+# MSG, Question#, Type, -, -, -, Answer, -, Points
+SUMMARY, 3, MC, -, -, -, A, -, 10
+# MSG, Question#, Box#, Address, Name, SpCnt, Answer, Place, Points, Bonus, Sum, Previous, Current, Standing
+RESULTS, 3, 1, 0x5D24BE, Number One, 0, A, 4, 10.00, 0.00, 10.00, 170.00, 180.00, 4
+RESULTS, 3, 2, 0x5D420A, Two by Two, 0, A, 5, 10.00, 0.00, 10.00, 150.00, 160.00, 5
+RESULTS, 3, 3, 0x5D42F6, Three Crowd, 0, A, 2, 10.00, 0.00, 10.00, 200.00, 210.00, 2
+RESULTS, 3, 4, 0x5DA31F, Four or more, 1, A, 1, 10.00, 0.00, 10.00, 200.00, 210.00, 2
+RESULTS, 3, 5, 0x5DA26C, Five Alive!, 0, A, 3, 10.00, 0.00, 10.00, 250.00, 260.00, 1
+RESULTS, 3, 6, 0x5DA2E2, Six, 0, B, 6, 0.00, 0.00, 0.00, 40.00, 40.00, 8
+RESULTS, 3, 7, 0x5DA2EE, Seven Heaven, 0, B, 8, 0.00, 0.00, 0.00, 30.00, 30.00, 10
+RESULTS, 3, 8, 0x5D431C, Eight Is Enough, 1, B, 9, 0.00, 0.00, 0.00, 120.00, 120.00, 6
+RESULTS, 3, 9, 0x5D41D9, Nine more, 0, B, 10, 0.00, 0.00, 0.00, 90.00, 90.00, 7
+RESULTS, 3, 10, 0x5DA327, Ten Hen, 0, B, 7, 0.00, 0.00, 0.00, 40.00, 40.00, 8
+RESULTS, 3, 11, 0x5D4200, Eleven Teen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 3, 12, 0x5D4314, Twelve Delve, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 3, 13, 0x5D42F2, Thirteen Wirteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 3, 14, 0x5DA2F5, Fourteen Forts, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 3, 15, 0x5D410D, Fifteen Fifths, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 3, 16, 0x5D42E0, Sixteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 3, 17, 0x5DA26B, Seventeen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 3, 18, 0x5D42E7, Eighteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 3, 19, 0x5DA2A3, Nineteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 3, 20, 0x5D4301, Twenty Wenty, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+NEXT, 12_15_2012, 08:35:08.283
+#
+# MSG, Question#, Type, -, -, -, Answer, -, Points
+SUMMARY, 4, MC, -, -, -, A, -, 10
+# MSG, Question#, Box#, Address, Name, SpCnt, Answer, Place, Points, Bonus, Sum, Previous, Current, Standing
+RESULTS, 4, 1, 0x5D24BE, Number One, 0, A, 2, 10.00, 0.00, 10.00, 180.00, 190.00, 4
+RESULTS, 4, 2, 0x5D420A, Two by Two, 0, C, 1, 0.00, 0.00, 0.00, 160.00, 160.00, 5
+RESULTS, 4, 3, 0x5D42F6, Three Crowd, 0, B, 3, 0.00, 0.00, 0.00, 210.00, 210.00, 2
+RESULTS, 4, 4, 0x5DA31F, Four or more, 1, B, 4, 0.00, 0.00, 0.00, 210.00, 210.00, 2
+RESULTS, 4, 5, 0x5DA26C, Five Alive!, 0, B, 5, 0.00, 0.00, 0.00, 260.00, 260.00, 1
+RESULTS, 4, 6, 0x5DA2E2, Six, 0, A, 6, 10.00, 0.00, 10.00, 40.00, 50.00, 8
+RESULTS, 4, 7, 0x5DA2EE, Seven Heaven, 0, A, 9, 10.00, 0.00, 10.00, 30.00, 40.00, 9
+RESULTS, 4, 8, 0x5D431C, Eight Is Enough, 1, B, 8, 0.00, 0.00, 0.00, 120.00, 120.00, 6
+RESULTS, 4, 9, 0x5D41D9, Nine more, 0, C, 10, 0.00, 0.00, 0.00, 90.00, 90.00, 7
+RESULTS, 4, 10, 0x5DA327, Ten Hen, 0, B, 7, 0.00, 0.00, 0.00, 40.00, 40.00, 9
+RESULTS, 4, 11, 0x5D4200, Eleven Teen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 4, 12, 0x5D4314, Twelve Delve, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 4, 13, 0x5D42F2, Thirteen Wirteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 4, 14, 0x5DA2F5, Fourteen Forts, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 4, 15, 0x5D410D, Fifteen Fifths, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 4, 16, 0x5D42E0, Sixteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 4, 17, 0x5DA26B, Seventeen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 4, 18, 0x5D42E7, Eighteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 4, 19, 0x5DA2A3, Nineteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 4, 20, 0x5D4301, Twenty Wenty, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+NEXT, 12_15_2012, 09:25:56.758
+#
+# MSG, Question#, Type, -, -, -, Answer, -, Points
+SUMMARY, 5, MC, -, -, -, A, -, 10
+# MSG, Question#, Box#, Address, Name, SpCnt, Answer, Place, Points, Bonus, Sum, Previous, Current, Standing
+RESULTS, 5, 1, 0x5D24BE, Number One, 0, B, 8, 0.00, 0.00, 0.00, 190.00, 190.00, 4
+RESULTS, 5, 2, 0x5D420A, Two by Two, 0, B, 5, 0.00, 0.00, 0.00, 160.00, 160.00, 5
+RESULTS, 5, 3, 0x5D42F6, Three Crowd, 0, C, 4, 0.00, 0.00, 0.00, 210.00, 210.00, 2
+RESULTS, 5, 4, 0x5DA31F, Four or more, 1, C, 6, 0.00, 0.00, 0.00, 210.00, 210.00, 2
+RESULTS, 5, 5, 0x5DA26C, Five Alive!, 0, C, 7, 0.00, 0.00, 0.00, 260.00, 260.00, 1
+RESULTS, 5, 6, 0x5DA2E2, Six, 0, C, 1, 0.00, 0.00, 0.00, 50.00, 50.00, 8
+RESULTS, 5, 7, 0x5DA2EE, Seven Heaven, 0, B, 2, 0.00, 0.00, 0.00, 40.00, 40.00, 10
+RESULTS, 5, 8, 0x5D431C, Eight Is Enough, 1, A, 3, 10.00, 0.00, 10.00, 120.00, 130.00, 6
+RESULTS, 5, 9, 0x5D41D9, Nine more, 0, A, 9, 10.00, 0.00, 10.00, 90.00, 100.00, 7
+RESULTS, 5, 10, 0x5DA327, Ten Hen, 0, A, 10, 10.00, 0.00, 10.00, 40.00, 50.00, 8
+RESULTS, 5, 11, 0x5D4200, Eleven Teen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 5, 12, 0x5D4314, Twelve Delve, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 5, 13, 0x5D42F2, Thirteen Wirteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 5, 14, 0x5DA2F5, Fourteen Forts, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 5, 15, 0x5D410D, Fifteen Fifths, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 5, 16, 0x5D42E0, Sixteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 5, 17, 0x5DA26B, Seventeen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 5, 18, 0x5D42E7, Eighteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 5, 19, 0x5DA2A3, Nineteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 5, 20, 0x5D4301, Twenty Wenty, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+NEXT, 12_15_2012, 09:26:28.029
+QUIT
+CLOSE, 12_15_2012, 09:27:23.947
+START, 12_15_2012, 09:33:00.492
+SAVE, QuizResults.csv
+NEXT, 12_15_2012, 09:33:01.782
+QUIT
+CLOSE, 12_15_2012, 09:33:05.174
+START, 12_15_2012, 09:33:51.168
+SAVE, QuizResults.csv
+NEXT, 12_15_2012, 09:33:52.471
+QUIT
+CLOSE, 12_15_2012, 09:34:34.430
+START, 12_15_2012, 09:52:38.563
+SAVE, QuizResults.csv
+NEXT, 12_15_2012, 09:52:39.847
+QUIT
+CLOSE, 12_15_2012, 09:52:58.399
+START, 12_15_2012, 10:24:11.612
+SAVE, QuizResults.csv
+NEXT, 12_15_2012, 10:24:13.033
+QUIT
+CLOSE, 12_15_2012, 10:24:45.618
+START, 12_15_2012, 10:25:37.906
+SAVE, QuizResults.csv
+NEXT, 12_15_2012, 10:25:39.227
+#
+# MSG, Question#, Type, -, -, -, Answer, -, Points
+SUMMARY, 1, MC, -, -, -, A, -, 10
+# MSG, Question#, Box#, Address, Name, SpCnt, Answer, Place, Points, Bonus, Sum, Previous, Current, Standing
+RESULTS, 1, 1, 0x5D24BE, Number One, 0, A, 8, 10.00, 0.00, 10.00, 190.00, 200.00, 4
+RESULTS, 1, 2, 0x5D420A, Two by Two, 0, A, 7, 10.00, 0.00, 10.00, 160.00, 170.00, 5
+RESULTS, 1, 3, 0x5D42F6, Three Crowd, 0, B, 9, 0.00, 0.00, 0.00, 210.00, 210.00, 2
+RESULTS, 1, 4, 0x5DA31F, Four or more, 1, C, 6, 0.00, 0.00, 0.00, 210.00, 210.00, 2
+RESULTS, 1, 5, 0x5DA26C, Five Alive!, 0, C, 10, 0.00, 0.00, 0.00, 260.00, 260.00, 1
+RESULTS, 1, 6, 0x5DA2E2, Six, 0, A, 3, 10.00, 0.00, 10.00, 50.00, 60.00, 8
+RESULTS, 1, 7, 0x5DA2EE, Seven Heaven, 0, A, 4, 10.00, 0.00, 10.00, 40.00, 50.00, 9
+RESULTS, 1, 8, 0x5D431C, Eight Is Enough, 1, C, 5, 0.00, 0.00, 0.00, 130.00, 130.00, 6
+RESULTS, 1, 9, 0x5D41D9, Nine more, 0, B, 1, 0.00, 0.00, 0.00, 100.00, 100.00, 7
+RESULTS, 1, 10, 0x5DA327, Ten Hen, 0, C, 2, 0.00, 0.00, 0.00, 50.00, 50.00, 9
+RESULTS, 1, 11, 0x5D4200, Eleven Teen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 12, 0x5D4314, Twelve Delve, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 13, 0x5D42F2, Thirteen Wirteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 14, 0x5DA2F5, Fourteen Forts, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 15, 0x5D410D, Fifteen Fifths, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 16, 0x5D42E0, Sixteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 17, 0x5DA26B, Seventeen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 18, 0x5D42E7, Eighteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 19, 0x5DA2A3, Nineteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 1, 20, 0x5D4301, Twenty Wenty, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+NEXT, 12_15_2012, 10:26:18.518
+#
+# MSG, Question#, Type, -, -, -, Answer, -, Points
+SUMMARY, 2, SP, -, -, -, N, -, 20
+# MSG, Question#, Box#, Address, Name, SpCnt, Answer, Place, Points, Bonus, Sum, Previous, Current, Standing
+RESULTS, 2, 1, 0x5D24BE, Number One, 0, N, 0, 0.00, 0.00, 0.00, 200.00, 200.00, 4
+RESULTS, 2, 2, 0x5D420A, Two by Two, 0, N, 0, 0.00, 0.00, 0.00, 170.00, 170.00, 5
+RESULTS, 2, 3, 0x5D42F6, Three Crowd, 0, N, 0, 0.00, 0.00, 0.00, 210.00, 210.00, 2
+RESULTS, 2, 4, 0x5DA31F, Four or more, 1, N, 0, 0.00, 0.00, 0.00, 210.00, 210.00, 2
+RESULTS, 2, 5, 0x5DA26C, Five Alive!, 0, N, 0, 0.00, 0.00, 0.00, 260.00, 260.00, 1
+RESULTS, 2, 6, 0x5DA2E2, Six, 0, N, 0, 0.00, 0.00, 0.00, 60.00, 60.00, 9
+RESULTS, 2, 7, 0x5DA2EE, Seven Heaven, 0, N, 0, 0.00, 0.00, 0.00, 50.00, 50.00, 10
+RESULTS, 2, 8, 0x5D431C, Eight Is Enough, 1, N, 0, 0.00, 0.00, 0.00, 130.00, 130.00, 6
+RESULTS, 2, 9, 0x5D41D9, Nine more, 0, N, 0, 0.00, 0.00, 0.00, 100.00, 100.00, 7
+RESULTS, 2, 10, 0x5DA327, Ten Hen, 1, B, 1, 20.00, 0.00, 20.00, 50.00, 70.00, 8
+RESULTS, 2, 11, 0x5D4200, Eleven Teen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 12, 0x5D4314, Twelve Delve, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 13, 0x5D42F2, Thirteen Wirteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 14, 0x5DA2F5, Fourteen Forts, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 15, 0x5D410D, Fifteen Fifths, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 16, 0x5D42E0, Sixteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 17, 0x5DA26B, Seventeen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 18, 0x5D42E7, Eighteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 19, 0x5DA2A3, Nineteen, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+RESULTS, 2, 20, 0x5D4301, Twenty Wenty, 0, N, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 11
+NEXT, 12_15_2012, 10:26:41.903
+QUIT
+CLOSE, 12_15_2012, 10:27:15.249

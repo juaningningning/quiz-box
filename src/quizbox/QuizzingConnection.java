@@ -25,7 +25,13 @@ public class QuizzingConnection {
 	private SerialConnection connection;
 	private InputStreamThread reader;
 	
+	private String myVersion;
+	private String myInfo;
+	
 	public QuizzingConnection() {
+		myVersion = "";
+		myInfo = "";
+		
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 		    public void run() { 
 		    	if (isConnected()) {
@@ -37,7 +43,7 @@ public class QuizzingConnection {
 	}
 	
 	public String getConnectionMessage() {
-		if (isConnected()) return "Connected";
+		if (isConnected()) return "Connected: " + myVersion + " [" + myInfo + "]";
 		return "Not connected";
 	}
 
@@ -50,7 +56,9 @@ public class QuizzingConnection {
 				QuizMessage qm = getNextInputMessage(5000);
 				found = qm.isVersionMessage();
 				if (found) {
-					log.info("Quizzing device found: '" + qm.getVersion() + "'");
+					myVersion = qm.getVersion();
+					myInfo = qm.getInfoString();
+					log.info("Quizzing device found: version = '" + myVersion + "' / '" + myInfo + "'");
 				}
 			}
 		} catch (IOException e) {
