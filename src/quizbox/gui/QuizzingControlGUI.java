@@ -738,10 +738,14 @@ public class QuizzingControlGUI extends JFrame implements QuizConstants, SerialL
 		myControl.recordResults();
 		updateGUIResults();
 		myControl.advanceQuestionNumber();
-		myControl.clearTotals();
 		
+		myControl.clearTotals();
 		resetInternal(true);
 		clearIgnoreUpdates(true, true);		
+		myControl.clearTotals();
+		resetInternal(true);
+		clearIgnoreUpdates(true, true);		
+		myControl.clearTotals();
 	}
 	private void doSetupDisplay() {
 		myIsDisplayed = false;
