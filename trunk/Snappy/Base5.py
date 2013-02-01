@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------
-# QuizBox Base Version 5e
+# QuizBox Base Version 5f
 # 12/08/2012
 # Ted Meyers
 # -------------------------------------------------------------------
@@ -7,11 +7,14 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 # -------------------------------------------------------------------
+# 2/1/13 ver 5f -   added quiet mode (only a mode on base unit)
+#                   fixed baud rate display
+# -------------------------------------------------------------------
 #
 from synapse.switchboard import *
 from synapse.platforms import *
 
-VER = "5e"
+VER = "5f"
 HEX = "0123456789ABCDEF"
 NET_ID = 3
 CHANNEL_ID = 4
@@ -48,6 +51,10 @@ def setNodeName(name):
 
 def getNodeName():
     return nodeName
+     
+def setModeQuiet():
+    global curMode
+    curMode=MODE_QUIET
 
 def sendResetTimeOut():
     mcastRpc(1, 3, 'rt')
@@ -55,11 +62,7 @@ def sendResetTimeOut():
 def sendClear():
     global select
     mcastRpc(1, 3, 'cs')
-      
-def sendModeQuiet():
-    global curMode
-    curMode=MODE_QUIET
-    
+     
 def sendModePower():
     global curMode
     curMode=MODE_POWER
@@ -108,11 +111,17 @@ def sendModeDemoClear():
 def sendLQRequestTo(addr):
     rpc(addr,'sq')
     
-def sendLQRequest(addr):
+def sendLQRequest():
     mcastRpc(1, 3, 'sq')
    
 def sendUpdateDisplay(a,b,c,p):
-    mcastRpc(1, 3, 'sd', a, b, c, p) 
+    mcastRpc(1, 3, 'sled', a, b, c, p) 
+    
+def sendStatusRequestTo(addr):
+    rpc(addr, 'gstat')
+    
+def sendStatusRequest():
+    mcastRpc(1, 3, 'gstat')
 
 def getStatus():
     return curMode
@@ -121,10 +130,17 @@ def getStatus():
 # Network functions
 # ------------------------------------------
 # Remote Status
+def rstat(base, data):
+    addr=rpcSourceAddr()
+    addr=_translateNode(addr)
+    base=_translateNode(base)
+    print "(%S:", addr, ", ", base, "; ", data, ')'
+    
+# Remote LQ Status
 def rs(data, lq):
     addr=rpcSourceAddr()
     if data==0: data="00"
-    print "(+", addr, data, lq, ')',
+    if curMode!=MODE_QUIET: print "(+", addr, data, lq, ')',
 
 # Button selected Return requested
 def br(data, lq):
@@ -174,7 +190,8 @@ def getBaudRateX():
     val = str(DEFAULT_BAUD_RATE)
     rate = loadNvParam(BAUD_RATE_ID)
     if rate==None: rate = DEFAULT_BAUD_RATE # Use Default val
-    elif rate==1: val = "115200"            # Special Case
+    
+    if rate==1: val = "115200"            # Special Case
     elif rate==-7936: val = "57600"         # Special Case
     else: val = str(rate)
     return val
@@ -195,19 +212,21 @@ def _printHelp():
     print "  b - print current baud rate"
     print "  Bx - set baud rate (1=115200, 2=2400, 3=38400, 4=14400, 5=57600, 9=9600)"
     print "  Nname - set name to 'name'"
-    print "  s - print status"
     print "  v - print version"
+    print "  s - print status"
+    print "  S - send Status request"
     print "  q - send LQ request"
     print "  cx - change channel to x (on all connected devices)"
     print "  Uxxxx - send update request (x=T/F)"
     print "  C - send clear"
     print "  m - print startup mode"
-    print "  Q,P,L,R,T,D - set mode (quiet, power, lock, ready, test, demo"
-    print "  Mx - set startup mode (x = Q,P,L,R,T,D)"
-    print "  Ax - set startup mode on remotes"
+    print "  Q - set Quiet mode (doesn't send mode updates or show updates)"
+    print "  P,L,R,T,D - set mode (power, lock, ready, test, demo)"
+    print "  Mx - set startup mode (x = P,L,R,T,D)"
+    print "  Ax - set startup mode on remotes (x = P,L,R,T,D)"
     print "  F - Turn text format on;  f - turn text format off"
     print "  [Node Info: ", nodeNameX, " b: ", getBaudRateX(), " sm: ", getStartupMode(), \
-        " nid: ", loadNvParam(NET_ID), " ch: ", loadNvParam(CHANNEL_ID), "]"
+        " nid: ", str(loadNvParam(NET_ID)), " ch: ", str(loadNvParam(CHANNEL_ID)), "]"
     print ")"
 
 def _updateNodeNameX():
@@ -246,7 +265,7 @@ def _processInput(data):
         if d=='C':
             sendClear()
         elif d=='Q':
-            sendModeQuiet()
+            setModeQuiet()
         elif d=='P':
             sendModePower()
         elif d=='L':
@@ -331,7 +350,13 @@ def _processInput(data):
         elif d=='s':
             lq = getLq()
             print "(!", curMode, chr(lq), ')',
-            if textFormat: print "(%S:", curMode, ",", lq, ')'
+            if textFormat: print "(%s:", curMode, ",", lq, ')'
+        elif d=='S':
+            if sz>i+3:
+                sendStatusRequest(data[i+1:i+4])
+                i=i+3
+            if textFormat: print "(%S: Sending...)"
+            sendStatusRequest()
         elif d=='v':
             nid = ", nid=" + str(loadNvParam(NET_ID))
             ch = ", ch=" + str(loadNvParam(CHANNEL_ID))
